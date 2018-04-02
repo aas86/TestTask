@@ -32,5 +32,10 @@ public class Controller implements ViewListener {
         view.showDB(dataBaseConnector.filterDB(id, name));
     }
 
+    @Override
+    public void needConnect(String login, String password) {
+        dataBaseConnector.connect(login, password);
+    }
+
 
 }

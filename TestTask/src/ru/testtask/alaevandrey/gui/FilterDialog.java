@@ -43,11 +43,11 @@ public class FilterDialog {
         return idLabel;
     }
 
-    public JButton getOkButton() {
+    JButton getOkButton() {
         return okButton;
     }
 
-    public void close(){
+    void close(){
         this.filterDialog.dispose();
     }
     private void initFilterDialog() {

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class DataBaseConnector implements Connector {
     private final String url = "jdbc:mysql://localhost:3306/test?useSSL=false";
-    private final String user = "root";
-    private final String password = "repmvf";
+    private  String user /*= "root"*/;
+    private  String password /*= "repmvf"*/;
 
 
     @Override
@@ -82,5 +82,11 @@ public class DataBaseConnector implements Connector {
             }
         }
         return data;
+    }
+
+    @Override
+    public void connect(String login, String password) {
+       this.user = login;
+       this.password = password;
     }
 }

@@ -8,7 +8,7 @@ class AddDialog {
     private JDialog dialog = new JDialog();
     private final JTextField name = new JTextField();
     private JButton addButton = new JButton("Добавить имя");
-  //  private JDialog queryDialog = new JDialog();
+    //  private JDialog queryDialog = new JDialog();
 
     AddDialog() {
         initAddDialog();
@@ -26,7 +26,11 @@ class AddDialog {
         return name;
     }
 
-    private void initAddDialog(){
+    void close() {
+        dialog.dispose();
+    }
+
+    private void initAddDialog() {
         dialog.setLayout(new GridBagLayout());
         GridBagConstraints c1 = new GridBagConstraints();
         c1.fill = GridBagConstraints.NONE;
@@ -42,7 +46,7 @@ class AddDialog {
         c2.fill = GridBagConstraints.NONE;
         c2.gridx = 0;
         c2.gridy = 2;
-        c2.insets = new Insets(10, 0,0,10);
+        c2.insets = new Insets(10, 0, 0, 10);
         dialog.add(addButton, c2);
 
 

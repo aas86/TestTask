@@ -17,6 +17,7 @@ public class FrameView implements View {
     private JButton addButton = new JButton("Добавить в БД");
     private JButton queryButton = new JButton("Запрос к БД");
 
+
     @Override
     public void addNewListener(ViewListener listener) {
         if (!listeners.contains(listener)) {
@@ -52,7 +53,7 @@ public class FrameView implements View {
                         filterDialog.close();
                         try {
                             id = Integer.parseInt(filterDialog.getId().getText());
-                           // System.out.println(id);
+                            // System.out.println(id);
 
                         } catch (IllegalArgumentException e1) {
                             // filterDialog.getIdLabel().setForeground(Color.RED);
@@ -62,7 +63,7 @@ public class FrameView implements View {
                         }
                         try {
                             name = filterDialog.getName().getText();
-                           // System.out.println(name);
+                            // System.out.println(name);
                         } catch (IllegalArgumentException e2) {
                             name = null;
                         }
@@ -76,7 +77,6 @@ public class FrameView implements View {
                         }
                     }
                 });
-
             }
         });
     }
@@ -88,6 +88,7 @@ public class FrameView implements View {
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setVisible(true);
     }
+
 
     private void initMainFrameContent() {
         mainFrame.setLayout(new GridBagLayout());
@@ -109,6 +110,19 @@ public class FrameView implements View {
     }
 
     private void initEvents() {
+        boolean connected = false;
+        ConnectionFrame connectionFrame = new ConnectionFrame();
+        connectionFrame.getConnect().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String login = connectionFrame.getLogin().getText();
+                String password = connectionFrame.getPassword().getText();
+                connectionFrame.close();
+                for (ViewListener listener : listeners) {
+                   listener.needConnect(login, password);
+                }
+            }
+        });
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,11 +131,24 @@ public class FrameView implements View {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         String name = addDialog.getName().getText();
+                        addDialog.close();
                         for (ViewListener listener : listeners) {
                             try {
                                 listener.needAddToDB(name);
                             } catch (SQLException | ClassNotFoundException e1) {
-                                e1.printStackTrace();
+                             //   e1.printStackTrace();
+                                ConnectionFrame connectionFrame1 = new ConnectionFrame("Wrong login or password");
+                                connectionFrame1.getConnect().addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        String login = connectionFrame1.getLogin().getText();
+                                        String password = connectionFrame1.getPassword().getText();
+                                        connectionFrame1.close();
+                                        for (ViewListener listener : listeners) {
+                                            listener.needConnect(login, password);
+                                        }
+                                    }
+                                });
                             }
                         }
                     }
@@ -135,9 +162,20 @@ public class FrameView implements View {
                     try {
                         listener.needSelectFromDB();
                     } catch (SQLException e1) {
-                        e1.printStackTrace();
+                        //e1.printStackTrace();
+                        ConnectionFrame connectionFrame1 = new ConnectionFrame("Wrong login or password");
+                        connectionFrame1.getConnect().addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                String login = connectionFrame1.getLogin().getText();
+                                String password = connectionFrame1.getPassword().getText();
+                                connectionFrame1.close();
+                                for (ViewListener listener : listeners) {
+                                    listener.needConnect(login, password);
+                                }
+                            }
+                        });
                     }
-
                 }
             }
         });
