@@ -9,12 +9,13 @@ import java.util.ArrayList;
 
 public class DataBaseConnector implements Connector {
     private final String url = "jdbc:mysql://localhost:3306/test?useSSL=false";
-    private  String user /*= "root"*/;
-    private  String password /*= "repmvf"*/;
+    private String user /*= "root"*/;
+    private String password /*= "repmvf"*/;
 
 
     @Override
     public void add(String name) throws ClassNotFoundException, SQLException {
+        name = checkName(name);
         Class.forName("com.mysql.jdbc.Driver");
         try (Connection connection = DriverManager.getConnection(url, user, password);
              Statement statement = connection.createStatement()) {
@@ -60,6 +61,7 @@ public class DataBaseConnector implements Connector {
 
     @Override
     public ArrayList<Data> filterDB(int id, String name) throws SQLException {
+        name = checkName(name);
         ArrayList<Data> data = new ArrayList<>();
         ResultSet resultSet;
         try (Connection connection = DriverManager.getConnection(url, user, password);
@@ -86,7 +88,14 @@ public class DataBaseConnector implements Connector {
 
     @Override
     public void connect(String login, String password) {
-       this.user = login;
-       this.password = password;
+        this.user = login;
+        this.password = password;
+    }
+
+    private String checkName(String name) {
+        if (name.contains("'")) {
+          name = name.replace("'", "\\'");
+        }
+        return name;
     }
 }

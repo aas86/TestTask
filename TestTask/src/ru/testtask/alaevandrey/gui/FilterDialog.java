@@ -10,7 +10,6 @@ public class FilterDialog {
     private JLabel nameLabel = new JLabel("Введите имя");
 
 
-
     private JLabel idLabel = new JLabel("Введите id");
     private JTextField name = new JTextField();
     private JTextField id = new JTextField();
@@ -39,6 +38,7 @@ public class FilterDialog {
     public void setIdLabel(JLabel idLabel) {
         this.idLabel = idLabel;
     }
+
     public JLabel getIdLabel() {
         return idLabel;
     }
@@ -47,9 +47,10 @@ public class FilterDialog {
         return okButton;
     }
 
-    void close(){
+    void close() {
         this.filterDialog.dispose();
     }
+
     private void initFilterDialog() {
         filterDialog.setLayout(new GridBagLayout());
         GridBagConstraints c1 = new GridBagConstraints();
