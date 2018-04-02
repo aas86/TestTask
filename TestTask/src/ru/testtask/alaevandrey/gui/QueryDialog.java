@@ -28,7 +28,7 @@ class QueryDialog {
         return filter;
     }
 
-    public void close(){
+    public void close() {
         this.dialog.dispose();
     }
 

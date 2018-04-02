@@ -94,7 +94,7 @@ public class DataBaseConnector implements Connector {
 
     private String checkName(String name) {
         if (name.contains("'")) {
-          name = name.replace("'", "\\'");
+            name = name.replace("'", "\\'");
         }
         return name;
     }

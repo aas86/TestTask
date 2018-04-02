@@ -119,7 +119,7 @@ public class FrameView implements View {
                 String password = connectionFrame.getPassword().getText();
                 connectionFrame.close();
                 for (ViewListener listener : listeners) {
-                   listener.needConnect(login, password);
+                    listener.needConnect(login, password);
                 }
             }
         });
@@ -136,7 +136,7 @@ public class FrameView implements View {
                             try {
                                 listener.needAddToDB(name);
                             } catch (SQLException | ClassNotFoundException e1) {
-                             //   e1.printStackTrace();
+                                //   e1.printStackTrace();
                                 ConnectionFrame connectionFrame1 = new ConnectionFrame("Wrong login or password");
                                 connectionFrame1.getConnect().addActionListener(new ActionListener() {
                                     @Override
